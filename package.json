@@ -1,5 +1,5 @@
 {
-  "name": "es-solr-client",
+  "name": "solr-client",
   "version": "1.0.0",
   "description": "Solr Client",
   "main": "index.js",
