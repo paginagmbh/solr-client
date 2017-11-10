@@ -1,23 +1,10 @@
-/* global module */
 module.exports = {
     "env": {
         "browser": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "commonjs": true,
+        "mocha": true
     },
-    "extends": ["eslint:recommended"],
-    "rules": {
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "double"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
-    }
+    "extends": ["eslint:recommended"]
 };
