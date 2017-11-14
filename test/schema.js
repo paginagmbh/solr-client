@@ -22,18 +22,35 @@ describe("schemes", function() {
 
     it("can be updated", () => {
         core.schema().update(
-            ["add-field", {
-                name: "test1",
-                type: "currency",
-                stored: true
+            ["add-field-type", {
+                "name": "text_jm",
+                "class": "solr.TextField",
+                "positionIncrementGap": "100",
+                "analyzer": {
+                    "tokenizer": {
+                        "class": "solr.WhitespaceTokenizerFactory"
+                    },
+                    "filters": [
+                        { "class": "solr.LowerCaseFilterFactory" }
+                    ]
+                }
             }],
-
-            ["add-field", {
-                name: "test2",
-                type: "currency",
-                stored: false
+            ["add-dynamic-field", {
+                "name": "*_txt_jm",
+                "type": "text_jm",
+                "indexed": true,
+                "stored": true
+            }],
+            ["add-field-type", {
+                "name": "date_range",
+                "class": "solr.DateRangeField"
+            }],
+            ["add-dynamic-field", {
+                "name": "*_dr",
+                "type": "date_range",
+                "indexed": true,
+                "stored": true
             }]
-
         ).should.eventually.be.an("object");
     });
 });
