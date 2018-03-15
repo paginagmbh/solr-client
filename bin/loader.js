@@ -59,6 +59,10 @@ result = result.then((sources) => {
     return batches;
 });
 
+result = result.then(
+    (sources) => sources.length == 0 ? Promise.reject("No sources") : sources
+);
+
 result = result.map(
     (batch) => Promise.all(batch)
         .map(source => readFile(source, { encoding }))
