@@ -2,6 +2,6 @@
 
 ECMAScript Client for [Apache Solr](http://lucene.apache.org/solr/).
 
-## Requirements
+## TODO
 
-* [Superagent](http://visionmedia.github.io/superagent/)
+* https://github.com/js-cli/js-liftoff
