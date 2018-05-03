@@ -1,4 +1,5 @@
 module.exports = {
+    "extends": "eslint:recommended",
     "env": {
         "browser": true,
         "es6": true,
@@ -6,5 +7,8 @@ module.exports = {
         "commonjs": true,
         "mocha": true
     },
-    "extends": ["eslint:recommended"]
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module"
+    }
 };
