@@ -1,5 +1,0 @@
-#!/usr/bin/env node
-// -*- mode: JS2 -*-
-
-require("babel-register");
-require("./loader-es6");
