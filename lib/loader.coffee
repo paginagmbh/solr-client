@@ -43,8 +43,8 @@ main = () ->
         throw new Error "No sources" if batches.length is 0
 
         for docs in batches
-            docs = (readFile source, { encoding } for source in batch)
-            docs = Promise.all docs
+            docs = (readFile doc, { encoding } for doc in docs)
+            docs = await Promise.all docs
             await index.update docs
 
         await index.commit()

@@ -42,7 +42,7 @@ class Index
         requestOptions =
             url: [@url, path...].join "/"
             auth: auth
-            wt: "json"
+            qs: { (options.qs ? {})...,  wt: "json" }
 
         options = { defaultOptions..., options..., requestOptions... }
 
