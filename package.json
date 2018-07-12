@@ -1,9 +1,10 @@
 {
   "name": "solr-client",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "description": "Client for Apache Solr",
   "main": "./dist/solr.js",
   "license": "BSD-2-Clause",
+  "repository": "github:paginagmbh/solr-client",
   "bin": {
     "solr-loader": "./bin/solr-loader.js"
   },
