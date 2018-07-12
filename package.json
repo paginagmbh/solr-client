@@ -6,7 +6,7 @@
   "license": "BSD-2-Clause",
   "repository": "github:paginagmbh/solr-client",
   "bin": {
-    "solr-loader": "./bin/solr-loader.js"
+    "solr-loader": "./bin/solr-loader"
   },
   "engines": {
     "node": ">=8.6"
