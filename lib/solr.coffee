@@ -113,7 +113,7 @@ class Schema
     constructor: (@index, @core) ->
 
     get: () ->
-        { schema } = await @index.request core, "schema"
+        { schema } = await @index.request @core, "schema"
 
         indexed =
             fieldTypes: schemaIndex schema, "fieldTypes"
