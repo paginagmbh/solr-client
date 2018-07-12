@@ -2,32 +2,26 @@
   "name": "solr-client",
   "version": "2.4.1",
   "description": "Solr Client",
-  "main": "index.js",
+  "main": "./dist/solr.js",
   "license": "UNLICENSED",
   "private": true,
   "bin": {
-    "solr-loader": "./dist/loader.js"
+    "solr-loader": "./bin/solr-loader.js"
+  },
+  "engines": {
+    "node": ">=8.6"
   },
   "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "coffeescript": "^2.3.1",
     "fs-extra": "^6.0.1",
     "globby": "^8.0.1",
     "minimist": "^1.2.0",
     "netrc": "^0.1.4",
     "request": "^2.85.0"
   },
-  "devDependencies": {
-    "babel-eslint": "^8.2.3",
-    "eslint": "^5.1.0"
-  },
   "scripts": {
-    "lint": "eslint lib/*.js",
-    "prepare": "babel -d dist lib",
-    "prepublish": "babel -d dist lib",
+    "prepare": "coffee --compile --map --output dist/ lib/",
+    "prepublish": "coffee --compile --map --output dist/ lib/",
     "provision:vm": "cd provisioning && vagrant up"
   }
 }

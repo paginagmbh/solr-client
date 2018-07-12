@@ -1,2 +1,6 @@
 dist/
 node_modules/
+
+provisioning/.vagrant
+provisioning/roles/*.*
+provisioning/ubuntu-bionic-18.04-cloudimg-console.log

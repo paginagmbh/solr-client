@@ -1,7 +1,9 @@
-## Synopsis
+# ECMAScript Client for [Apache Solr](http://lucene.apache.org/solr/)
 
-ECMAScript Client for [Apache Solr](http://lucene.apache.org/solr/).
+## License
 
-## TODO
+BSD
 
-* https://github.com/js-cli/js-liftoff
+## Author Information
+
+This role was created in 2018 by [Pagina GmbH](https://www.pagina.gmbh/).
