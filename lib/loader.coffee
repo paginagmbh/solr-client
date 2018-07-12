@@ -32,9 +32,8 @@ main = () ->
             await index.clear()
 
         if (schema?)
-            schema = index.schema()
             schemaData = await readJson schema
-            await schema.update schemaData...
+            await index.schema().update schemaData...
 
         sources = await globby sourceGlobs
         batches = for i in [0...sources.length] by batch
