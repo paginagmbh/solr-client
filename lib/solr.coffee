@@ -11,7 +11,7 @@ netrcCredentials = (url) ->
 
 defaultOptions =
     qs: {},
-    useQueryString: true
+    useQuerystring: true
 
 class Index
 
