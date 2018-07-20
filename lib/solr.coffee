@@ -65,8 +65,8 @@ class Core
 
     schema: () -> new Schema @index, @name
 
-    select: (form, opts={ useQueryString: true}) ->
-        @index.request { method: "POST", form, opts... }, @name, "select"
+    select: (qs, opts={}) ->
+        @index.request { qs, opts... }, @name, "select"
 
     command: (body) ->
         headers = { "Content-Type": "application/xml;charset=UTF-8" };
