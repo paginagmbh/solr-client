@@ -2,6 +2,9 @@ assert = require "assert"
 globby = require "globby"
 minimist = require "minimist"
 
+debug = require "debug"
+log = debug "solr-client"
+
 { readFile, readJson } = require "fs-extra"
 
 solr = require "./solr"
@@ -33,7 +36,10 @@ main = () ->
 
         if (schema?)
             schemaData = await readJson schema
-            await index.schema().update schemaData...
+            try
+                await index.schema().update schemaData...
+            catch e
+                log e
 
         sources = await globby sourceGlobs
         batches = for i in [0...sources.length] by batch
