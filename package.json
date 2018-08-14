@@ -1,6 +1,6 @@
 {
   "name": "solr-client",
-  "version": "2.5.7",
+  "version": "2.6.0",
   "description": "Client for Apache Solr",
   "main": "./dist/solr.js",
   "license": "BSD-2-Clause",
