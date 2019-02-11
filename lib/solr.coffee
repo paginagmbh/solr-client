@@ -65,12 +65,15 @@ class Core
 
     schema: () -> new Schema @index, @name
 
+    request: (opts, path...) ->
+        @index.request opts, @name, path...
+
     select: (qs, opts={}) ->
-        @index.request { qs, opts... }, @name, "select"
+        @request { qs, opts... }, "select"
 
     command: (body) ->
         headers = { "Content-Type": "application/xml;charset=UTF-8" };
-        @index.request { method: "POST", headers, body }, @name, "update"
+        @request { method: "POST", headers, body }, "update"
 
     update: (documents) ->
         documents = (doc.replace /^<\?xml(.+?)\?>\s*/, "" for doc in documents)
