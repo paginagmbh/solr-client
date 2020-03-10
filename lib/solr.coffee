@@ -1,5 +1,5 @@
 { URL } = require "url"
-request = require "request"
+axios = require "axios"
 netrc = require "netrc"
 
 netrcCredentials = (url) ->
@@ -10,8 +10,7 @@ netrcCredentials = (url) ->
     { user: login, password }
 
 defaultOptions =
-    qs: {},
-    useQuerystring: true
+    params: {}
 
 class Index
 
@@ -28,6 +27,7 @@ class Index
 
     request: (args...) ->
         [ options, path... ] = args;
+
         if (typeof options == "string")
             path.unshift options
             options = {};
@@ -39,21 +39,20 @@ class Index
                 pass: @pass
                 sendImmediately: true
 
+        url = [@url, path...].join "/"
         requestOptions =
-            url: [@url, path...].join "/"
-            auth: auth
-            qs: { (options.qs ? {})...,  wt: "json" }
+            url: url,
+            auth: auth,
+            headers: { "Accept": "application/json" },
+            params: { (options.qs ? {})...,  wt: "json" }
 
+        delete options.qs
         options = { defaultOptions..., options..., requestOptions... }
 
-        res = await new Promise (resolve, reject) ->
-            request options, (err, res, body) ->
-                if err? then reject err else resolve body
+        res = await axios options
 
-        res = JSON.parse res
-
-        throw res if res.responseHeader.status isnt 0
-        res
+        throw res if res.data.responseHeader.status isnt 0
+        res.datareu
 
     status: () -> @request { qs: { "action": "status" } }, "admin", "cores"
 
