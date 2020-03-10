@@ -52,7 +52,7 @@ class Index
         res = await axios options
 
         throw res if res.data.responseHeader.status isnt 0
-        res.datareu
+        res.data
 
     status: () -> @request { qs: { "action": "status" } }, "admin", "cores"
 
