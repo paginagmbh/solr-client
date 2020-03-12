@@ -43,7 +43,6 @@ class Index
         requestOptions =
             url: url,
             auth: auth,
-            headers: { "Accept": "application/json" },
             params: { (options.qs ? {})...,  wt: "json" }
 
         delete options.qs
@@ -72,7 +71,7 @@ class Core
 
     command: (body) ->
         headers = { "Content-Type": "application/xml;charset=UTF-8" };
-        @request { method: "POST", headers, body }, "update"
+        @request { method: "POST", headers, data: body }, "update"
 
     update: (documents) ->
         documents = (doc.replace /^<\?xml(.+?)\?>\s*/, "" for doc in documents)
@@ -141,6 +140,6 @@ class Schema
         headers = { "Content-Type": "application/json;charset=UTF-8" };
         body = ["{", transaction, "}"].join ""
 
-        @index.request { method, headers, body }, @core, "schema"
+        @index.request { method, headers, data: body }, @core, "schema"
 
 module.exports = (args...) -> new Index args...
