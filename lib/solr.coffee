@@ -45,9 +45,7 @@ class Index
             url: url,
             auth: auth,
             params: { (options.qs ? {})...,  wt: "json" }
-            paramsSerializer: function(params) {
-                return queryString.stringify params, {arrayFormat: "repeat"}
-            }
+            paramsSerializer: (params) -> queryString.stringify params, {arrayFormat: "repeat"}
 
         delete options.qs
         options = { defaultOptions..., options..., requestOptions... }
