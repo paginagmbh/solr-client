@@ -1,6 +1,6 @@
 {
   "name": "solr-client",
-  "version": "2.8.4",
+  "version": "2.8.5",
   "description": "Client for Apache Solr",
   "main": "./dist/solr.js",
   "license": "BSD-2-Clause",
@@ -15,7 +15,7 @@
     "axios": "^0.24.0",
     "debug": "^4.3.3",
     "fs-extra": "^10.0.0",
-    "globby": "^12.0.2",
+    "globby": "^11.0.4",
     "minimist": "^1.2.5",
     "netrc": "^0.1.4",
     "qs": "^6.10.2"
