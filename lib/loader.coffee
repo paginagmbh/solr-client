@@ -37,7 +37,8 @@ main = () ->
         if (schema?)
             schemaData = await readJson schema
             try
-                await index.schema().update schemaData...
+                schema = await index.schema().get()
+                await schema.update schemaData...
             catch e
                 log e
 

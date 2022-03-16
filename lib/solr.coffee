@@ -119,22 +119,46 @@ class Schema
     get: () ->
         { schema } = await @index.request @core, "schema"
 
-        indexed =
+        @indexed =
             fieldTypes: schemaIndex schema, "fieldTypes"
             fields: schemaIndex schema, "fields"
             dynamicFields: schemaIndex schema, "dynamicFields"
 
-        { schema..., indexed... }
+        this
+
+    determineEffectiveCommandAgainstExistingSchema: (commandName, params) ->
+
+        # opType is either "add", "replace", or "delete"
+        opType = commandName.substring 0, commandName.indexOf "-"
+        # op is either "field", "dynamic-field", "field-type", or "copy-field"
+        op = commandName.substring (commandName.indexOf "-") + 1
+        # get @indexed key for op
+        key = switch
+            when op is "dynamic-field" then "dynamicFields"
+            when op is "field-type" then "fieldTypes"
+            else "fields"
+
+        fieldExists = @indexed[key][params.name]?
+
+        targetOpType = switch opType
+            when "add"
+                if fieldExists then "replace" else "add"
+            when "replace"
+                if not fieldExists then "add" else "replace"
+            when "delete"
+                if not fieldExists then null else "delete"
+            else opType
+
+        "#{targetOpType}-#{op}" if targetOpType?
 
     update: (commands...) ->
         transaction = for command in commands
             [name, params] = command
             throw new Error name if not SCHEMA_UPDATE_COMMANDS[name]?
 
-            name = JSON.stringify name
-            params = JSON.stringify params
+            name = @determineEffectiveCommandAgainstExistingSchema name, params
 
-            [name, params].join ":"
+            [(JSON.stringify name), (JSON.stringify params)].join ":" if name
 
         transaction = transaction.join ","
 
@@ -143,5 +167,8 @@ class Schema
         body = ["{", transaction, "}"].join ""
 
         @index.request { method, headers, data: body }, @core, "schema"
+
+
+
 
 module.exports = (args...) -> new Index args...
