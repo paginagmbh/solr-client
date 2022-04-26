@@ -110,7 +110,9 @@ SCHEMA_UPDATE_COMMANDS = [
 
 schemaIndex = (schema, key) ->
     schema = schema[key] ? []
-    schema.reduce ((idx, value) -> { idx..., [value.name]: value }), {}
+    schema.reduce ((idx, value) ->
+        key = value.name ? value.source
+        { idx..., [key]: value }), {}
 
 class Schema
 
@@ -123,6 +125,7 @@ class Schema
             fieldTypes: schemaIndex schema, "fieldTypes"
             fields: schemaIndex schema, "fields"
             dynamicFields: schemaIndex schema, "dynamicFields"
+            copyFields: schemaIndex schema, "copyFields"
 
         this
 
@@ -136,15 +139,23 @@ class Schema
         key = switch
             when op is "dynamic-field" then "dynamicFields"
             when op is "field-type" then "fieldTypes"
+            when op is "copy-field" then "copyFields"
             else "fields"
 
-        fieldExists = @indexed[key][params.name]?
+        fieldName = params.name ? params.source
+        fieldExists = @indexed[key][fieldName]?
 
-        targetOpType = switch opType
+        if op is not "copy-field" then targetOpType = switch opType
             when "add"
                 if fieldExists then "replace" else "add"
             when "replace"
                 if not fieldExists then "add" else "replace"
+            when "delete"
+                if not fieldExists then null else "delete"
+            else opType
+        else targetOpType = switch opType
+            when "add"
+                if fieldExists then null else "add"
             when "delete"
                 if not fieldExists then null else "delete"
             else opType
