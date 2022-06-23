@@ -145,7 +145,7 @@ class Schema
         fieldName = params.name ? params.source
         fieldExists = @indexed[key][fieldName]?
 
-        if op is not "copy-field" then targetOpType = switch opType
+        if op isnt "copy-field" then targetOpType = switch opType
             when "add"
                 if fieldExists then "replace" else "add"
             when "replace"
