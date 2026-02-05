@@ -1,5 +1,5 @@
 assert = require "assert"
-globby = require "globby"
+{globby} = require "globby"
 minimist = require "minimist"
 
 debug = require "debug"
